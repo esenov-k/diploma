@@ -1,0 +1,32 @@
+% Настройка библиографии
+\RequirePackage[
+	style=gost-numeric,
+	language=auto,
+	autolang=other,
+	sorting=none,
+]{biblatex}
+\RequirePackage{csquotes}
+	\DeclareFieldFormat{urldate}{(дата
+	обращения:\addspace\thefield{urlday}\adddot
+	\thefield{urlmonth}\adddot\thefield{urlyear})}
+
+% Для запоминания количества листингов
+\newcounter{lstlistingbib}
+
+% Задание нового заголовка, определяющего правила вставки библиографии
+\defbibheading{bibliography}[\bibname]{
+  	{\parindent0pt
+  		\chapter*{\hfill{\centering #1}\hfill}
+	}
+  	\addcontentsline{toc}{chapter}{#1}
+  	\markboth{#1}{#1}}
+
+% Создание списка литерартуры
+\newcommand{\makebibliography}
+{	
+	\setcounter{totfigures}{\value{figure}}	
+	\setcounter{tottables}{\value{table}}
+	\setcounter{lstlistingbib}{\value{lstlisting}}
+	\printbibliography[heading=bibliography,title={СПИСОК ИСПОЛЬЗОВАННЫХ ИСТОЧНИКОВ}]
+	\label{LastMainPage}
+}
