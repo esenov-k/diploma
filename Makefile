@@ -37,7 +37,7 @@ AUX_DIR = tmplatex
 
 # Don't change the code below if you don't realize what it is!
 # xelatex params for final file
-FINALPARAM = -halt-on-error -file-line-error -interaction=nonstopmode \
+FINALPARAM = -synctex=1 -halt-on-error -file-line-error -interaction=nonstopmode \
 -jobname=$(FINAL_FILE_NAME) "\def\classopts{final}\input{$(TEX_SOURCE).tex}"
 # xelatex params for final file
 MONOPARAM = -halt-on-error -file-line-error -interaction=nonstopmode \
@@ -46,13 +46,13 @@ MONOPARAM = -halt-on-error -file-line-error -interaction=nonstopmode \
 BUILDPARAM = -halt-on-error -file-line-error -interaction=nonstopmode \
 -jobname=$(BUILD_FILE_NAME) "\def\classopts{build}\input{$(TEX_SOURCE).tex}"
 # xelatex params for fastbuild file
-FASTBUILDPARAM = -halt-on-error -file-line-error -interaction=nonstopmode \
+FASTBUILDPARAM = -synctex=1 -halt-on-error -file-line-error -interaction=nonstopmode \
 -jobname=$(FASTBUILD_FILE_NAME) "\def\classopts{build}\input{$(TEX_SOURCE).tex}"
 # xelatex params for draft file
-DRAFTPARAM = -halt-on-error -file-line-error -interaction=nonstopmode \
+DRAFTPARAM = -synctex=1 -halt-on-error -file-line-error -interaction=nonstopmode \
 -jobname=$(DRAFT_FILE_NAME) "\def\classopts{draft}\input{$(TEX_SOURCE).tex}"
 # xelatex params for fastdraft file
-FASTDRAFTPARAM = -halt-on-error -file-line-error -interaction=nonstopmode \
+FASTDRAFTPARAM = -synctex=1 -halt-on-error -file-line-error -interaction=nonstopmode \
 -jobname=$(FASTDRAFT_FILE_NAME) "\def\classopts{draft}\input{$(TEX_SOURCE).tex}"
 
 # grep params for parse xelatex errors
@@ -221,7 +221,8 @@ cleanfinal: vertest
 	rm -rf $(AUX_DIR)/final || \
 	\
 	make -s cleantmp >$(TRASH)
-	rm -f $(FINAL_FILE_NAME).pdf 
+	rm -f $(FINAL_FILE_NAME).pdf
+	rm -f $(FINAL_FILE_NAME).synctex.gz 
 	printf "\e[1;32m Final file and aux files deleted! \e[0m\n"
 
 cleanmono: vertest
@@ -252,6 +253,9 @@ clean:
 	rm -f $(BUILD_FILE_NAME).pdf
 	rm -f $(FASTBUILD_FILE_NAME).pdf
 	rm -f $(DRAFT_FILE_NAME).pdf
+	rm -f $(FASTDRAFT_FILE_NAME).synctex.gz.
+	rm -f $(DRAFT_FILE_NAME).synctex.gz
+	rm -f $(FASTDRAFT_FILE_NAME).synctex.gz
 	rm -f $(FASTDRAFT_FILE_NAME).pdf
 	printf "\e[1;32m Clean done! \e[0m\n"
 
