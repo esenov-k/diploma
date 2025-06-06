@@ -49,23 +49,15 @@
 
 Обучение завершилось на 55-й эпохе вследствие срабатывания ранней остановки. Результирующая скорость обработки составила 29–52 FPS в зависимости от сложности сцены, что превышает минимальный порог в 25 FPS. На рисунке~\ref{fig::result} представлено сравнение валидационных данных (рисунок~\ref{fig::validation_data}), с данными, получеными после обучения модели (рисунок~\ref{fig::output_data}) .
 
-\begin{figure}
-\centering
-\begin{subfigure}{.5\textwidth}
-  \centering
-  \includegraphics[width=0.98\linewidth]{./images/Validation_data.png}
-  \caption{Валидационные данные}
-  \label{fig::validation_data}
-\end{subfigure}%
-\begin{subfigure}{.5\textwidth}
-  \centering
-  \includegraphics[width=0.98\linewidth]{./images/Output_data.png}
-  \caption{Выходные данные}
-  \label{fig::output_data}
-\end{subfigure}
-\caption{Сравнение валидационных и выходных данных}
-\label{fig::result}
+\begin{figure}[htb]
+    \centering
+    \subfloat[\centering Валидационные данные]{\includegraphics[width=7.5cm]{./images/Validation_data.png}\label{fig::validation_data}}
+    \qquad
+    \subfloat[\centering Выходные данные]{\includegraphics[width=7.5cm]{./images/Output_data.png}\label{fig::output_data}}
+    \caption{Сравнение валидационных и выходных данных}
+    \label{fig::result}
 \end{figure}
+
 
 Предварительный анализ системы показал следующие результаты:
 \begin{itemize}
