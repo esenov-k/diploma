@@ -2,44 +2,57 @@
 
 Рассмотрим дискретные моменты времени $t_k$ с постоянным шагом $\Delta t$.
 Все измерения переводятся в осевую систему координат \(\mathcal{V}\),
-связанную с центром задней оси автомобиля; калибровочные матрицы
-$\mathbf{T}_{\mathcal C \rightarrow \mathcal V}$ и
-$\mathbf{T}_{\mathcal R \rightarrow \mathcal V}$ считаются известными.
+связанную с центром задней оси автомобиля. Для корректной работы системыс
 
-Для каждого наблюдаемого объекта $j$ вводится вектор состояния
-\[\mathbf x_k^{(j)} = \bigl[x,\;y,\;v,\;\theta\bigr]^{\mathsf T},\]
+Для каждого наблюдаемого объекта $j$ вводится вектор состояния, назовем его $L$:
+
+\begin{equation}
+\label{fff}
+  \begin{aligned}
+    L_k^{(j)} = \bigl[x,\;y,\;v,\;\theta\bigr]^{T},
+  \end{aligned}
+\end{equation}
+
 где $x$ и $y$~— координаты в плоскости дороги; $v$~— модуль скорости;
 $\theta$~— азимут направления движения.
-Динамика аппроксимируется моделью \textit{Nearly-CTRV}
+Динамика аппроксимируется моделью \textit{CTRV}\cite{li2023vehicle}
 
 \begin{equation}
 \label{eq:nctrv}
-\begin{aligned}
- x_k &= x_{k-1} + \frac{v_{k-1}}{\omega}\bigl[\sin(\theta_{k-1}+\omega\,\Delta t)-\sin\theta_{k-1}\bigr],\\
- y_k &= y_{k-1} + \frac{v_{k-1}}{\omega}\bigl[-\cos(\theta_{k-1}+\omega\,\Delta t)+\cos\theta_{k-1}\bigr],\\
- v_k &= v_{k-1} + a\,\Delta t,\\
- \theta_k &= \theta_{k-1}+\omega\,\Delta t,
-\end{aligned}
+  \begin{aligned}
+    x_k &= x_{k-1} + \frac{v_{k-1}}{\omega}\bigl[\sin(\theta_{k-1}+\omega\,\Delta t)-\sin\theta_{k-1}\bigr],\\
+    y_k &= y_{k-1} + \frac{v_{k-1}}{\omega}\bigl[-\cos(\theta_{k-1}+\omega\,\Delta t)+\cos\theta_{k-1}\bigr],\\
+    v_k &= v_{k-1} + a\,\Delta t,\\
+    \theta_k &= \theta_{k-1}+\omega\,\Delta t,
+  \end{aligned}
 \end{equation}
 
 \noindent где $a$ и $\omega$~— продольное ускорение и угловая скорость,
-а вектор процессного шума $\mathbf w_{k-1}$ распределён по
-$\mathcal N(\mathbf 0,\,\mathbf Q)$.
+а вектор процессного шума $w_{k-1}$ распределён по
+$\mathcal N(0, Q)$.
 
 Сенсоры формируют гибридный вектор наблюдения
-\[\mathbf z_k^{(i)} = h\bigl(\mathbf x_k^{(j)}\bigr) + \mathbf v_k,\]
+
+\begin{equation}
+  \label{eq:hybrid_state_vector}
+  \begin{aligned}
+    z_k^{(i)} = h\bigl(x_k^{(j)}\bigr) + v_k,
+  \end{aligned}
+\end{equation}
+
 который объединяет прямоугольник детекции камеры
 $[u,\,v,\,w,\,h]$ и радарные полярные величины
 $[\rho,\,\varphi,\,\dot{\rho}]$;
-шум измерений $\mathbf v_k$ подчиняется
-$\mathcal N(\mathbf 0,\,\mathbf R)$.
+шум измерений $v_k$ подчиняется
+$\mathcal N(0, Q)$.
 
 В каждый момент времени доступно множество наблюдений
-$Z_k=\{\mathbf z_k^{(1)},\dots,\mathbf z_k^{(m_k)}\}$.
-Требуется определить матрицу ассоциации $\mathbf A_k$ между $Z_k$ и
+$Z_k=\{ z_k^{(1)},\dots, z_k^{(m_k)}\}$.
+Требуется определить матрицу ассоциации $A_k$ между $Z_k$ и
 совокупностью треков, оценить \emph{апостериорные}
-$\{\hat{\mathbf x}_k^{(j)},\,\mathbf P_k^{(j)}\}$
+$\{\hat{ x}_k^{(j)},\, P_k^{(j)}\}$
 и при этом удовлетворить ограничения:
+
 \begin{itemize}
   \item системная латентность $\tau_{\text sys}\le 50\,\text{мс}$;
   \item средняя погрешность прогноза позиции (горизонт $0{,}5\,\text{c}$)
@@ -58,13 +71,13 @@ $\{\hat{\mathbf x}_k^{(j)},\,\mathbf P_k^{(j)}\}$
 \label{subsec:architecture_choice}
 
 Анализ технического задания фиксирует четыре доминирующих ограничения:
-точность трекинга, прогнозирование траектории, латентность~$\le50\,\text{мс}$
-и ресурсный лимит платформы Jetson~Orin (40 Вт, 204 TOPS).
+точность трекинга, прогнозирование траектории, время обработки~$\le50\,\text{мс}$
+и ресурсный лимит платформы .
 При сравнении доступных архитектур
 (ByteTrack, DeepSORT, CenterTrack, GNN-MOT и др.)
 единственным вариантом, одновременно удовлетворяющим
 всем ограничениям, оказалась связка
-\textbf{YOLOv8n — DeepSORT — EKF}.
+\textbf{YOLOv11n — DeepSORT — EKF}.
 
 Главные аргументы приводятся ниже в повествовательной форме,
 чтобы не дробить текст перечнями:

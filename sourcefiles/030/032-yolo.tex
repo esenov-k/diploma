@@ -25,17 +25,17 @@ YOLO или You Only Look Once — алгоритм детекции объек�
     \item mAP (mean Average Precision) — точность на наборе COCO val2017
 \end{itemize}
 
-По результатам сравнения версий YOLO моделей nano имеем следующие показатели, представленные на рисунках \ref{fig::YoloFps}, \ref{fig::YoloParams}, а также на сводной таблице производительности \ref{tab::YoloCompare}.
+По результатам сравнения версий YOLO моделей nano имеем сравнение скорости обработки количества кадров в секунду на рисунке \ref{fig::YoloFps}, а также на таблицу производительности \ref{tab::YoloCompare}, на которой показаны основные метрики, используемые для оценки качества работы детектора.
 
 \img[htb]{fig::YoloFps}{yolo_map_vs_fps.png}{FPS по версиям}{0.9}
 
 \begin{table}[h]
     \centering
-    \caption{Сводная таблица производительности моделей YOLO}
+    \caption{Сводная таблица производительности моделей YOLO nano}
     \label{tab::YoloCompare}
     \begin{tabular}{|l|l|l|l|l|l|}
         \hline
-        \thead{Модель} & \thead{Параметры \\ (млн)} & \thead{FLOPs \\ (B)} & \thead{mAPval} & \thead{FPS \\ (INT8)} & \thead{Латентность \\ (INT8, мс)} \\ \hline
+        \thead{Модель} & \thead{Параметры \\ (млн)} & \thead{FLOPs \\ (B)} & \thead{mAP} & \thead{FPS \\ (INT8)} & \thead{Латентность \\ (INT8, мс)} \\ \hline
         YOLOv5n  & 2.6 & 7.7 & 28.0 & 40-45 & 22-25 \\ \hline
         YOLOv6n  & 4.7 & 11.4 & 37.0 & 55-60 & 16-18 \\ \hline
         YOLOv8n  & 3.2 & 8.7 & 37.3 & 65-70 & 14-15 \\ \hline
