@@ -1,35 +1,40 @@
 \begin{appendices}
 
+\chapter{{Технические характеристики аппаратной платформы}}
+
+    \begin{table}[ht]
+    \centering
+    \caption{Ключевые характеристики Intel\,Movidius\,Myriad\,X (MA2485)}
+    \label{tab:myriadx_specs}
+        \begin{tabular}{|p{7.5cm}|p{7.5cm}|}
+        \hline
+        \textbf{Параметр}                       & \textbf{Значение} \\ \hline
+        Техпроцесс                              & 16\,nm TSMC FinFET \\ \hline
+        Пиковая вычислительная мощность (total) & $>$\,4\,TOPS \\ \hline
+        Neural Compute Engine (DNN)             & $\approx$\,1\,TOPS \\ \hline
+        SHAVE векторные ядра                    & 16\,×\,128-bit VLIW \\ \hline
+        RISC ядра                               & 2\,×\,LEON4 (SPARC V8) \\ \hline
+        Встроенная SRAM                         & 2.5\,MB, 400\,GB/s внутр. шина \\ \hline
+        Внешняя DRAM                            & LPDDR3/4 32-bit до 1.6 GHz, ≤ 16 Gb \\ \hline
+        Аппаратные CV/DSP ускорители            & $>$ 20 (Stereo Depth, Optical Flow и др.) \\  \hline
+        Камеры / интерфейсы                     & 16\,×\,MIPI CSI-2 (до 8 HD сенсоров) \\ \hline
+        Видео кодек                             & 4K@30 Hz (H.264/H.265), 4K@60 Hz (MJPEG) \\   \hline
+        Потребляемая мощность                   & 1 – 2 W TDP \\ \hline
+        Корпус / габариты                       & VF2BGA-380, 8.8 mm × 8.0 mm × 1 mm \\ \hline
+        Диапазон температур                     & −40 … +105 °C \\ \hline
+        \end{tabular}
+    \end{table}
+
 \chapter{Реализация DeepSORT}
 
-\lstinputlisting[   
-    language =  Python,
-    caption  =  {Модуль \texttt{deep\_sort.py}},
-    label    =  {code:deepsort_py}
-    ]{sourcefiles/lst/deep_sort.py}
+%\input{}
 
-\lstinputlisting[   
-    language =  Python,
-    caption  =  {Модуль \texttt{detection.py}},
-    label    =  {code:detection_py}
-    ]{sourcefiles/lst/detection.py}
+\includepdf[pages=-, scale = 0.8]{sourcefiles/appendix/deepsort_code.pdf}
 
-\lstinputlisting[   
-    language =  Python,
-    caption  =  {Модуль \texttt{feature\_extractor.py}},
-    label    =  {code:feature_extractor_py}
-    ]{sourcefiles/lst/feature_extractor.py}
+% \input{sourcefiles/appendix/deepsort_description.pdf}
 
-\lstinputlisting[   
-    language =  Python,
-    caption  =  {Модуль \texttt{nn\_matching.py}},
-    label    =  {code:nn_matching_py}
-    ]{sourcefiles/lst/nn_matching.py}
+\chapter{Сводная таблица результатов}
 
-\lstinputlisting[   
-    language =  Python,
-    caption  =  {Модуль \texttt{tracker.py}},
-    label    =  {code:tracker_py}
-    ]{sourcefiles/lst/tracker.py}
+    \input{sourcefiles/appendix/results.tex}
 
 \end{appendices}
