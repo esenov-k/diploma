@@ -6,27 +6,29 @@
     \item Скорость работы на двух чипах Intel Myriad должна быть не менее 25 FPS, при разрешении входного видеопотока 640 на 640 пикселей.
     \item Показатели результатов обучения детектора:
      \begin{itemize}
-        \item mAP\@0.5 > 0.8
-        \item IDF1 > 0.78
-        \item HOTA > 0.64
-        \item FAF < 0.16
+        \item mAP > 0.8; АP (для транспортных классов) > 0.92;
+        \item Recall при (Confidence = 0) > 0.9; Recall при (Confidence = 0.5) > 0.7;
+        \item F1 при (Confidence = 0.3) > 0.8;
+        \item Precision при (Confidence = 0.95) > 0.95;
     \end{itemize}
-    \item Средние показатели по всем тестировочным сценариям:
-    \begin{itemize}
-        \item MOTA > 0.81
-        \item IDF1 > 0.78
-        \item HOTA > 0.64
-        \item FAF < 0.16
-        \item IDS < 30/1000 кадров
-    \end{itemize}
-    \item Средние показатели по нагруженным сценариям (плохое освещение, плотный трафик, плохие погодные условия):
-    \begin{itemize}
-        \item MOTA > 0.76
-        \item IDF1 > 0.75
-        \item HOTA > 0.6
-        \item FAF < 0.16
-        \item IDS < 50/1000 кадров
-    \end{itemize}
+
+    \item Показатели системы МОТ представлены в таблице~\ref{tab:mot_task}
+
+    \begin{table}[h]
+        \centering
+        \caption{Требования к разрабатываемой системе МОТ}
+        \label{tab:mot_task}
+        \begin{tabular}{|l|l|}
+            \hline
+            \thead{Средние показатели по\\всем тестировочным сценариям} & \thead{Средние показатели по \\нагруженным сценариям (плохое\\освещение, плотный трафик,\\плохие погодные условия)} \\ \hline
+            MOTA > 0.81             & MOTA > 0.76           \\ \hline
+            IDF1 > 0.78             & IDF1 > 0.75           \\ \hline
+            HOTA > 0.64             & HOTA > 0.6            \\ \hline
+            FAF < 0.16              & FAF < 0.16            \\ \hline
+            IDS < 30/1000 кадров    & IDS < 50/1000 кадров  \\ \hline
+        \end{tabular}
+    \end{table}
+
 \end{enumerate}
 
 Технические характеристики IntelMyriad представлены в приложении~\ref{tab:myriadx_specs}~\cite{Intel_MyriadX_ProductBrief_2018}~\cite{Oh_2017_MyriadX_AnandTech}.
